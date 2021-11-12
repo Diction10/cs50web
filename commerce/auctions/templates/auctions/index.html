@@ -1,0 +1,52 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% for listing in listings %}
+        {% if listing.is_active is True %}
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="media">
+                        <img class="rounded-circle account-img" src="{{ listing.item_image.url }}">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="container" style="font-size: large;">
+                        <div>
+                            Listing Created by: : 
+                            {{ listing.user }}
+                        </div>
+                        <div>
+                            Item Created : 
+                            {{ listing.item_name }}
+                        </div>
+                        <div>
+                            {{ listing.item_description }}
+                        </div>
+                        <div>
+                            Starting Bid is: 
+                            ${{ listing.item_price }}
+                        </div>
+                        <div>
+                            {{ listing.date_created }}
+                        </div>
+                            <div class="form-group">
+                                <a href="{% url 'listing_page' listing.item_name %}">
+                                    <button class="btn btn-outline-info" type="submit">Details</button>
+                                </a>
+                            </div>
+                        
+        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% empty %}
+            <h5> No Active Listing at this time </h5>
+        
+    {% endfor %}
+        
+            
+            
+{% endblock %}

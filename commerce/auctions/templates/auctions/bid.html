@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+{% if message %}
+<div>{{ message }}</div>
+{% endif %}
+
+<div class="container">
+    <div class="content-section">
+        <form action="{% url 'bid' name %}" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">
+                    Bid on {{ name }} starting at ${{ listing_bid }} 
+                    {% if highest_bid == 0 %}
+                        <div> No bids yet! </div> 
+                    {% else %}
+                        <div> Highet bid is: ${{ highest_bid }} </div> 
+                    {% endif %}
+                </legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Bid</button>
+            </div>
+        </form>
+    </div>
+</div>
+   
+
+{% endblock body %}

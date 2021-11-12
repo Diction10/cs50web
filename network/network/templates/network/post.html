@@ -1,0 +1,19 @@
+{% extends "network/layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="container">
+    <div class="content-section">
+        <form action="{% url 'new_post' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form|crispy }}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

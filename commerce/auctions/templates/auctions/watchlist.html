@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+    {% if message %}
+        <h2> {{ message}} </h2>
+        <form action="{% url 'remove_watchlist' name %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Remove from Watchlist</button>
+                <button class="btn btn-outline-info" type="submit" formaction="{% url 'index' %}">Go to Homepage</button>
+            </div>
+        </form>
+    {% else %}
+        <h4>
+            Active listings on Watchlist! 
+        </h4>
+         {% for user in users %}
+                {{ user|capfirst }} added:
+
+                    {% for creator in watchlist %}
+                        {% if user == creator.user %}
+                            <li>
+                                <a href="{% url 'listing_page' creator.item_name.item_name %}">
+                                    {{ creator.item_name.item_name }}
+                                </a>
+                            </li>
+                    {% endif %}
+                {% endfor %}
+            <hr>
+            {% empty %}
+                <h5> You do not have any watchlist added!!! </h5>
+        {% endfor %}
+            
+    {% endif %}
+
+{% endblock %}
+
+           

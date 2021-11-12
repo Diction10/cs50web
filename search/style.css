@@ -1,0 +1,131 @@
+ .anchor{
+     text-align: right;
+ }
+ a:link{
+      text-align: right;
+      text-decoration: none;
+      color: black;
+  }
+
+  a:hover{
+      text-decoration: underline;
+  }
+
+  .doodle{
+      text-align: center;
+      margin-top: 50px;;
+  }
+
+  .container{
+      text-align:center
+  }
+
+  .input-icons{
+    width: 50%; 
+    margin-bottom: 10px; 
+    margin-left: 250px;
+  }
+
+  .input-icons i {
+      position: absolute;
+  }
+
+  .icon{
+      padding: 10px;
+      min-width: 40px;
+  }
+
+  .input-field{
+    width: 100%; 
+    padding: 10px;
+    text-align: left; 
+    border-radius: 40px;
+    /* margin-right: 50px; */
+    padding-left: 50px;
+    outline: none;
+
+  }
+
+  .btn_search{
+    font: Arial, Helvetica, sans-serif;
+    height: 100px   
+    
+  }
+
+  .submit{
+    font-size: 20px;
+	margin-top: 30px;
+	border: none;
+  }
+
+  .lang{
+    margin-top: 20px;
+	margin-left: 50px;
+	font-size: 20px;
+	font-weight: 10px;
+	font: Arial, Helvetica, sans-serif;
+  }
+
+  .space{
+      padding-left: 10px;
+  }
+
+.form-control{
+    width: 60%;
+}
+
+#button{
+	/* color: white;
+	background-color: blue;
+	width: 150px;
+	height: 20px
+	font-size: 20px; */
+	margin-left:320px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* .header{
+      margin-bottom: 15px; */
+  }
+  /* .image-header{
+      width: 50px;
+  } */
+
+  /* .field{
+      border: none;
+  }
+  h2{
+      color: blueviolet;
+  }
+
+  label{
+      font-size: 20px;
+      display: block;
+      float: left;
+      
+  }
+
+  .group{
+    padding-top: 20px;
+  }
+
+  .field{
+      width: 60%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+  } */

@@ -1,0 +1,88 @@
+{% extends "network/layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body_attrs %} onload="follow();" {% endblock %}
+
+{% block body %}
+
+    <div class="content-section">
+        <div class="media">
+        <img class="rounded-circle account-img" src="{{ profil.profile.image.url }}">
+        <div class="media-body">            
+            <h2 class="account-heading">{{ profil.profile.user|capfirst }}</h2>
+            <p class="text-secondary">Followers: {{profil.profile.followers.all|length}}</p>
+            <p class="text-secondary">Following: {{profil.profile.following.all|length}}</p>
+            <div id="follow_button">
+            </div>
+        </div>
+        </div>
+    </div>
+    <hr>
+    <div id="all_User_posts">
+        <div>
+            {% for post in posts %}
+                <div id="profile_post">
+                    <h3>
+                        <p class="article-content" id="post_content{{ post.id }}">{{ post.post_content }}</p>
+                    </h3>
+                    {% if request.user == profil.profile.user %}
+                        <a href="#" id="A{{ post.id }}" onclick="edit('{{ post.id }}')"> Edit </a>
+                        <div id="E{{ post.id }}"></div>                    
+                    {% endif %} 
+                    <a class="article-title" href="#" onsubmit="return false" onclick="umptenth('{{ post.id }}')" id="{{ post.id }}">  </a>= 
+                    <small id="like_count{{ post.id }}"> {{post.user_like.all|length}} </small>
+                </div>
+                <hr>
+                {% empty %}
+                    <h4> No post yet!</h4>
+            {% endfor %}
+            </div>
+        
+            <!-- pagination -->
+            <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    {% endif %}
+                </li>
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+        
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    </li>        
+                {% endif %}
+            </ul>
+            </nav>      
+        </div>
+    <script>
+        // Set variable for curret user and user's profile to be used in js file
+        var  curr_user = "{{ request.user }}";
+        var  curr_user_id = "{{ request.user.id }}";
+        var profile= "{{profil.username }}" ;
+        var post_length = '{{page_obj.object_list}}';
+        var post = "{{ post }}" ;
+    </script>
+
+{% endblock %}
+
+    

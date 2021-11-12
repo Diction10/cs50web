@@ -1,0 +1,67 @@
+{% extends "auctions/layout.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <h2>Listing Page for {{ listing.item_name }}</h2>
+        <div>
+            Listing Created by: : 
+            {{ listing.user }}
+        </div>
+        <div>
+            Item Created : 
+            {{ listing.item_name }}
+        </div>
+        <div>
+            Item Description:
+            {{ listing.item_description }}
+        </div>
+        <div>
+            Starting Bid is: 
+            ${{ listing.item_price }}
+        </div>
+        <div>
+            Date created:
+            {{ listing.date_created }}
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <form action="{% url 'watchlist' listing.item_name %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Add to Watchlist</button>
+                        <button class="btn btn-outline-info" type="submit" formaction="{% url 'bid' listing.item_name %}">Bid on Item</button>
+                            {% if user == listing.user %}
+                                <button class="btn btn-outline-info" type="submit" formaction="{% url 'close_auction' listing.item_name %}">Close Auction</button>
+                            {% endif %}
+                    </div>
+                </form>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <form action="{% url 'listing_page' listing.item_name %}" method="POST">
+                            {% csrf_token %}
+                            
+                            {{ form|crispy }}
+                            <div class="form-group">
+                                <button class="btn btn-outline-info" type="submit">Comment</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                            <h3> Display Comments here</h3>
+                            {% for comment in comments %}
+                                <div>
+                                    {{ comment.user|capfirst }} commented:
+                                </div>
+                                <div>
+                                    {{ comment.item_comment }}   
+                                </div>
+                                <hr>
+                            {% empty %}
+                                <h5> No comment yet!</h5>
+                            {% endfor%}
+                    </div>
+                </div>
+                
+            {% endif %}
+        </div>
+{% endblock %}

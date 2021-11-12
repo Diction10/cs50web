@@ -1,0 +1,73 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+    {% for post in page_obj.object_list %}
+        <article class="media content-section">
+        <div class="media-body" id="all_User_posts">
+            <div class="article-metadata">
+            <a class="mr-2" href="{% url 'profile' post.user %}">{{ post.user|capfirst }}</a>
+            <small class="text-muted">{{ post.date_posted }}</small>
+            </div>
+            <p class="article-content">
+                <div id="post_content{{ post.id }}">
+                    {{ post.post_content }}
+                </div>
+                {% if request.user == post.user  %}
+                    <a href="#" id="A{{ post.id }}" onclick="edit('{{ post.id }}')"> Edit </a>
+                    <div id="E{{ post.id }}"></div>
+                {% endif %}
+            </p>
+            {% if user.is_authenticated %}
+                <a class="article-title" href="#" onclick="umptenth('{{ post.id }}')" id="{{ post.id }}"></a>= 
+                <small id="like_count{{ post.id }}"> {{post.user_like.all|length}} </small>
+            {% endif %}
+            <hr>
+        </div>
+        </article>
+    {% endfor %}
+
+        <!-- pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center"">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    {% endif %}
+                </li>
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    </li>        
+                {% endif %}
+            </ul>
+        </nav>
+
+        <script>
+            // Set variable for curret user and user's profile to be used in js file
+            var  curr_user = "{{ request.user }}";
+            var  curr_user_id = "{{ request.user.id }}";
+        </script>
+{% endblock %}

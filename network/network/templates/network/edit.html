@@ -1,0 +1,40 @@
+{% extends "network/layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+    <div class="content-section">
+        <div class="media">
+        <img class="rounded-circle account-img" src="{{ profile.profile.image.url }}">
+        <div class="media-body">            
+            <h2 class="account-heading">{{ profile.profile.user|capfirst }}</h2>
+            <p class="text-secondary">Followers: {{profile.profile.followers.all|length}}</p>
+            <p class="text-secondary">Following: {{profile.profile.following.all|length}}</p>
+            <div id="follow_button">
+            </div>
+        </div>
+        </div>
+    </div>
+    <hr>
+    <form>
+        <div id="edited_post" class="form-group">
+            <textarea name="" id="print" cols="30" rows="10">
+                {% for field in edit_form %}
+                    {{ field.value }}
+                {% endfor %}
+            </textarea>
+        </div>
+        <div class="form-group">
+            <button onclick="edit('{{ post_id }}')" id="edit_btn" class="btn btn-outline-info" type="button">Save</button>
+        </div>
+    </form>
+
+    <script>
+        // Set variable for curret user and user's profile to be used in js file
+        var  user = "{{ profile.profile.user }}";
+    </script>
+{% endblock %}
+
+
+
