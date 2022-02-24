@@ -1,0 +1,66 @@
+{% extends "erp/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block sidebar %}
+<h1> {{ user | capfirst }} </h1>
+  <ul>
+    <li>
+      <a href="#" onclick="emp_list()" return false;> Employees </a>
+    </li>
+    <li>
+      <a href="#"> HR Functions </a>
+    </li>
+  </ul>
+{% endblock sidebar %}
+
+{% block body %}
+  <div class="content-section">
+    <div>
+        <h2>Human Resource Department</h2>
+    </div>
+    <div id="hr_main"> Main</div>
+    <div id="hr_emp">
+      <table>
+        <thead>
+          <tr>
+            <th> S/N </th>
+            <th> First Name</th>
+            <th> Last Name</th>
+            <th> Email </th>
+            <th> Employee ID</th>
+            <th> Edit Info </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for employee in employees %}
+          <tr>
+            <td></td>
+            <td> {{ employee.first_name | capfirst }}</td>
+            <td>{{ employee.last_name | capfirst }} </td>
+            <td> {{ employee.email }} </td>
+            <td> {{ employee.id }}  </td>
+            <td> <a href="#" onclick="update_emp()">  Edit </a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <ol>
+        {% for employee in employees %}
+          <li>
+            {{ employee }}
+          </li>
+        {% endfor %}
+      </ol>
+    </div> 
+    <div id="emp_info"> 
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{ form | crispy}}
+        <div class="form-group">
+            <button class="btn btn-outline-info mt-2" type="submit">Sav</button>
+        </div>
+      </form>
+    </div>
+  </div>  
+{% endblock %}

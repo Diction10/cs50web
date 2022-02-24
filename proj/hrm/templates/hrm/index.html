@@ -1,0 +1,19 @@
+{% extends "erp/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+
+
+{% block sidebar %}
+{% endblock %}
+
+{% block body %}
+    <h1> Welcome to the HRM Department! </h1>
+    <div>
+        <a href="{% url 'hrm:employee_list' %}"> <h2> View list of Employees </h2> </a>
+    </div> 
+
+    
+{% endblock %}
+</body>
+</html>
