@@ -1,0 +1,48 @@
+{% extends "erp/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+
+
+{% block body %}
+  <div class="content-section">
+
+    <div class=" signin text-center">
+      <a href="{% provider_login_url 'google' %}" class="text-dark">
+        <button>
+          <img src=" {% static 'img/google.jpg'%} " style="width:4rem; height:auto" alt="Login with Google">
+          Sign in with Google
+        </button>
+      </a>
+    </div>
+  
+    <br><br>
+  
+    <div style="width: 100%; height: 15px; border-bottom: 1px solid lightgray; text-align: center">
+      <span class="text-muted" style="margin-top:-15% !important; font-size: 11px; background-color: white; padding: 0px 10px;">
+        OR
+      </span>
+    </div>
+  
+    <br><br>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group ">
+          <legend class="border-bottom mb-4">Register</legend>
+            <div class="col-sm-8">
+              {{ form|crispy }}
+              {{ form2|crispy }}
+            <div class="form-group">
+               <button class="btn btn-outline-info mt-2" type="submit">Register</button>
+            </div>
+            </div>
+        </fieldset>
+    </form>
+    <div class="border-top pt-3">
+      <small class="text-muted">
+        Already have an account? <a href="{% url 'login' %}">Sign In</a>
+      </small>
+    </div>
+  </div>
+{% endblock %}

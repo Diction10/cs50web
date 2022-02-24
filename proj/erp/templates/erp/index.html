@@ -1,0 +1,18 @@
+{% extends "erp/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>  Welcome {{ user | capfirst }} to cs50w Final Project </h2>
+    <div>
+      <h2>This is the landing Page</h2>
+    </div>
+    <h3>
+      <a href=" {% url 'info' %} "> Personal Info </a>
+    </h3>
+    <h3>
+      <a href=" {% url 'leave' %} "> Apply for leave </a>
+    </h3>
+
+{% endblock %}
+</body>
+</html>

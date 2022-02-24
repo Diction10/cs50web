@@ -1,0 +1,62 @@
+{% extends "erp/layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body_attrs %} onload="follow();" {% endblock %}
+
+{% block body %}
+
+    <div class="content-section">
+        <div class="media">
+        <img class="rounded-circle account-img" src="{% static 'img/profile_pic.jpg'%}"  style="width:4rem; height:auto">
+        <div class="media-body">            
+            <h2 class="account-heading">{{ user | capfirst }}'s Information</h2>
+        </div>
+        </div>
+    </div>
+    
+
+    <div>
+        <table class="table table-sm table-dark">
+            <tbody>
+                <tr class="table-secondary">
+                    <td class="table-secondary">  Username: </td>
+                    <td class="table-secondary"> {{ user_info.username | capfirst }}</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td class="table-secondary">  First Name:: </td>
+                    <td class="table-secondary"> {{ user_info.first_name | capfirst }}</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td class="table-secondary">  Last Name </td>
+                    <td class="table-secondary"> {{ user_info.last_name | capfirst }}</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td class="table-secondary">  E-mail </td>
+                    <td class="table-secondary"> {{ user_info.email }}</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td class="table-secondary">  Department </td>
+                    <td class="table-secondary"> {{ user_info.department | capfirst }}</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td class="table-secondary">  Salary </td>
+                    <td class="table-secondary"> {{ user_info.salary | capfirst }}</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td class="table-secondary">  Date Joined </td>
+                    <td class="table-secondary"> {{ user_info.date_joined  | capfirst }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <h4>
+                    Edit your Information <a class="ml-2" href="{% url 'edit_info' %}">here</a>
+                </h4>
+            </small>
+        </div>
+    </div>
+{% endblock %}
+
+    

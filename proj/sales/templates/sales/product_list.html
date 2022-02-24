@@ -1,0 +1,58 @@
+{% extends "erp/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+
+
+{% block body %}
+    <h1> Welcome to the Sales Department! </h1>
+
+    <div class="container">
+        <div>
+            <h2> List of Available Products</h2>
+        </div>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">S/N</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{ product.name|capfirst }}</td>
+                <td>${{ product.price|capfirst }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                    <a href=" {% url 'sales:edit_product' product.name %} " class="glyphicon glyphicon-pencil">
+                    </a>
+                </td> 
+                <td>
+                    <a  href="#" onclick="confirm_delete('{{ product.name }}');"  class="glyphicon glyphicon-trash" >
+                    </a>
+                </td> 
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div>
+            <h3>
+              <a href=" {% url 'sales:add_product' %} "> Add Product  </a>
+            </h3>
+          </div>
+          <div class="form-group">
+              <a href=" {% url 'sales:download_excel' %} " class="btn btn-outline-info mt-2">
+               Download In Excel
+              </a>              
+          </div>
+    </div>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "erp/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% block body_attrs %} onload="leave();" {% endblock %}
+
+
+{% block body %}
+    <h1> This is the leave application page </h1>
+    <div class="border-top pt-3" id="leave_app">
+        <h3> You have {{ leave_days }} leave days left</h3>
+        <small class="text-muted">
+            <h5>
+                Apply for leave <a class="ml-2" href="#" onclick="load_form();">here</a>
+            </h5>
+        </small>
+    </div>
+
+   
+
+    <div id="leave_form">
+        <form action="{%url 'leave' %}" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group ">
+              <legend class="border-bottom mb-4">Leave Application</legend>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <h3> From </h3>
+                        <input class="form-control" type="date" name="departure" requires>
+                    </div>
+                    <div class="form-group">
+                        <h3> To </h3>
+                        <input class="form-control" type="date" name="arrival" required>
+                    </div>
+                    <div class="form-group">
+                        <h3> Location </h3>
+                        <input class="form-control" type="text" name="location" placeholder="Location">
+                    </div>
+                    <div class="form-group">
+                        <h3> Reason for Leave </h3>
+                        <textarea name="reason" id="" cols="50" rows="10" placeholder="Reason for leave"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info mt-2" type="submit">Apply</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    
+   
+{% endblock %}

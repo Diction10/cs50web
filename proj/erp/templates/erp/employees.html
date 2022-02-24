@@ -1,0 +1,21 @@
+{% extends "erp/hr.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+  <div class="content-section">
+    
+      <div>
+          <ol>
+            {% for employee in employees %}
+              <li>
+                <a href="{% url 'dashboard' employee.username %}">
+                  {{employee.username | capfirst}}
+                </a>
+              </li>
+            {% endfor %}
+          </ol>
+      </div>
+   
+  </div>
+{% endblock %}
